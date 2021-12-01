@@ -5,7 +5,6 @@ import time
 def GrayScale(IMG):
     height, width, c = IMG.shape
     image_data = np.asarray(IMG)
-    print(height,width,c)
     for i in range(height):
         for j in range(width):
             image_data[i][j] = image_data[i][j][1]
@@ -22,18 +21,6 @@ def Threshold(IMG,threshold,value): # GV(Gray Value,밝기값)이 임계값(Thre
             else:
                 IMG[i][j] = 0
     return IMG
-
-
-def SobelXX(Image):
-    sobel_Xfilter = np.array([[-1,0,1],[-2,0,2],[-1,0,1]])
-    image_data = np.asarray(Image)
-    for width in range(0,len(image_data)):
-        for height in range(3,len(image_data[0])):
-            for i in range(0,3):
-                for j in range(0,3):
-                    sum += image_data[width+i][height+j][0] * sobel_Xfilter[i][j]
-
-
 
 def SobelX(Image):
     sobel_Xfilter = np.array([[-1,0,1],[-2,0,2],[-1,0,1]])
@@ -68,9 +55,11 @@ cv2.imshow('Gray',Grayimg)
 Thresimg = Threshold(Grayimg,127,255)
 cv2.imshow('threshold',Thresimg)
 sobelx = SobelX(copy(Grayimg))
+cv2.imshow('sobelx',sobelx)
 sobely = SobelY(copy(Grayimg))
+cv2.imshow('sobely',sobely)
 edge = sobelx+sobely
-cv2.imshow('sobel',edge)
+cv2.imshow('sobelx+y',edge)
 
 img_sobel_x = cv2.Sobel(copy(Grayimg), cv2.CV_64F, 1, 0, ksize=1)
 img_sobel_x = cv2.convertScaleAbs(img_sobel_x)
